@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Olagunju Itunuoluwa Ayomide — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --gold: #c9a84c;
+    --gold-light: #e8d08a;
+    --cream: #f8f4ee;
+    --cream-dark: #ede7db;
+    --text: #1a1a2e;
+    --muted: #6b6b7b;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0; right: 0;
+    height: 80px;
+    background: var(--cream);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 100px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.65);
+    max-width: 400px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 2px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    cursor: pointer;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--navy);
+  }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 60px;
+    position: relative;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1s;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 4px;
+    padding: 28px 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    background: rgba(201,168,76,0.1);
+    border-color: var(--gold);
+    transform: translateY(-4px);
+  }
+
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+  }
+
+  /* ── DECORATIVE LINES ── */
+  .deco-line {
+    position: absolute;
+    background: rgba(201,168,76,0.15);
+  }
+  .deco-h { height: 1px; width: 120px; }
+  .deco-v { width: 1px; height: 120px; }
+
+  /* ── SECTIONS ── */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 300;
+    color: var(--navy);
+    margin-bottom: 60px;
+    line-height: 1.2;
+  }
+
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* ── ABOUT ── */
+  .about { padding: 100px 0; }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .about-text p strong { color: var(--navy); font-weight: 500; }
+
+  .about-right {}
+
+  .value-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--cream-dark);
+    align-items: flex-start;
+  }
+
+  .value-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--navy);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+
+  .value-body h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .value-body p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── SERVICES ── */
+  .services {
+    padding: 100px 0;
+    background: var(--navy);
+    position: relative;
+  }
+
+  .services::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: 0; right: 0;
+    height: 80px;
+    background: var(--cream);
+    clip-path: ellipse(55% 100% at 50% 0%);
+  }
+
+  .services::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 80px;
+    background: var(--cream);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  .services .section-title { color: var(--white); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 4px;
+    padding: 36px 28px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--gold);
+    transition: height 0.3s ease;
+  }
+
+  .service-card:hover::before { height: 100%; }
+
+  .service-card:hover {
+    background: rgba(201,168,76,0.07);
+    border-color: rgba(201,168,76,0.4);
+    transform: translateY(-6px);
+  }
+
+  .service-icon {
+    font-size: 28px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .service-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .service-card p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    border-radius: 2px;
+  }
+
+  /* ── EXPERIENCE ── */
+  .experience { padding: 100px 0; }
+
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 0;
+  }
+
+  .exp-nav {
+    border-right: 1px solid var(--cream-dark);
+    padding-right: 40px;
+    position: sticky;
+    top: 40px;
+    align-self: start;
+  }
+
+  .exp-nav-item {
+    padding: 16px 20px;
+    cursor: pointer;
+    border-radius: 2px;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+  }
+
+  .exp-nav-item:hover, .exp-nav-item.active {
+    background: rgba(15,31,61,0.05);
+    border-left-color: var(--gold);
+  }
+
+  .exp-nav-item .nav-org {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+
+  .exp-nav-item .nav-role {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .exp-nav-item.active .nav-org { color: var(--gold); }
+
+  .exp-content { padding-left: 60px; }
+
+  .exp-panel { display: none; }
+  .exp-panel.active { display: block; }
+
+  .exp-panel h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .exp-panel .exp-org {
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .exp-panel .exp-date {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  .exp-panel ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .exp-panel ul li {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+    padding: 8px 0 8px 20px;
+    border-bottom: 1px solid var(--cream-dark);
+    position: relative;
+  }
+
+  .exp-panel ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 300;
+  }
+
+  /* ── ACHIEVEMENTS ── */
+  .achievements {
+    padding: 100px 0;
+    background: var(--cream-dark);
+  }
+
+  .ach-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .ach-card {
+    background: var(--white);
+    border-radius: 4px;
+    padding: 28px 32px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 12px rgba(15,31,61,0.06);
+  }
+
+  .ach-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(15,31,61,0.12);
+  }
+
+  .ach-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .ach-card h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 4px;
+    line-height: 1.5;
+  }
+
+  .ach-card p {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    padding: 100px 0 80px;
+    background: var(--navy);
+    text-align: center;
+    position: relative;
+  }
+
+  .contact::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: 0; right: 0;
+    height: 80px;
+    background: var(--cream-dark);
+    clip-path: ellipse(55% 100% at 50% 0%);
+  }
+
+  .contact .section-title { color: var(--white); margin-bottom: 20px; }
+
+  .contact-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 48px;
+    line-height: 1.8;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 2px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.25s ease;
+  }
+
+  .contact-item:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  .footer-line {
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  nav.scrolled {
+    background: rgba(15,31,61,0.95);
+    backdrop-filter: blur(10px);
+    padding: 14px 60px;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--white);
+    letter-spacing: 1px;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 120px 40px 80px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .exp-nav { border-right: none; border-bottom: 1px solid var(--cream-dark); padding-right: 0; padding-bottom: 20px; position: static; display: flex; gap: 8px; flex-wrap: wrap; }
+    .exp-content { padding-left: 0; padding-top: 40px; }
+    .ach-grid { grid-template-columns: 1fr; }
+    nav { padding: 20px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .container { padding: 0 24px; }
+  }
+
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .hero-links { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">O<span>.</span>Itunuoluwa</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Available for Remote Work</p>
+    <h1 class="hero-name">Olagunju<br><em>Itunuoluwa</em><br>Ayomide</h1>
+    <p class="hero-desc">Legal scholar. Operations manager. Content creator. Community builder. I bring structure, strategy, and heart to every role I take on.</p>
+    <div class="hero-links">
+      <a href="#services" class="btn btn-gold">View My Services</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-number">20+</div>
+        <div class="stat-label">Campus Ambassadors Managed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Scholarship Programmes Delivered</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">200+</div>
+        <div class="stat-label">Magazine Downloads</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">Top<br><span style="font-size:28px">50</span></div>
+        <div class="stat-label">SW Nigeria Law Students</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Who I Am</p>
+      <h2 class="section-title">A versatile professional<br>who <em>gets things done</em></h2>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>I'm a <strong>fourth-year Law student</strong> at Osun State University with a proven record in operations management, legal practice, content creation, and community leadership — all while pursuing my degree.</p>
+        <p>I've led teams, managed scholarship programmes, hosted events, written for publications, and delivered client work as a Virtual Assistant. I'm comfortable with ambiguity, quick to take initiative, and consistent in delivering quality output.</p>
+        <p>Whether you need someone to <strong>run your backend operations, manage your communications, write sharp content</strong>, or coordinate a complex programme — I bring both the skills and the reliability to make it happen remotely.</p>
+      </div>
+      <div class="about-right">
+        <div class="value-item">
+          <div class="value-icon">⚡</div>
+          <div class="value-body">
+            <h4>Fast & Reliable</h4>
+            <p>I meet deadlines consistently and communicate proactively when anything changes.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">🎯</div>
+          <div class="value-body">
+            <h4>Detail-Oriented</h4>
+            <p>From editing legal documents to coordinating scholarship logistics, I don't miss things.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">🌍</div>
+          <div class="value-body">
+            <h4>Remote-Ready</h4>
+            <p>I've managed teams and clients across Nigeria using Google Workspace and digital tools.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">📈</div>
+          <div class="value-body">
+            <h4>Growth-Driven</h4>
+            <p>I don't just do tasks — I look for ways to improve systems and add more value.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label" style="color:var(--gold)">What I Offer</p>
+      <h2 class="section-title">Services I can<br>deliver <em>remotely</em></h2>
+    </div>
+    <div class="services-grid reveal">
+
+      <div class="service-card">
+        <span class="service-icon">🗂️</span>
+        <h3>Virtual Assistance & Admin</h3>
+        <p>Email management, calendar coordination, scheduling, research, spreadsheet organisation, and seamless communication on behalf of clients.</p>
+        <div class="service-tags">
+          <span class="tag">Email</span>
+          <span class="tag">Scheduling</span>
+          <span class="tag">Research</span>
+          <span class="tag">Google Workspace</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">⚙️</span>
+        <h3>Operations & Programme Management</h3>
+        <p>End-to-end coordination of programmes, teams, and campaigns. I've managed scholarship delivery, mentorship programmes, and multi-team operations.</p>
+        <div class="service-tags">
+          <span class="tag">Coordination</span>
+          <span class="tag">Team Management</span>
+          <span class="tag">Tracking</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">✍️</span>
+        <h3>Content Writing & Communications</h3>
+        <p>Professional articles, editorial content, official communications, and social copy. Published in the FON Ubuntu Young Leaders Magazine with ~200 downloads.</p>
+        <div class="service-tags">
+          <span class="tag">Articles</span>
+          <span class="tag">Editing</span>
+          <span class="tag">Copywriting</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">🎙️</span>
+        <h3>Event Hosting & Moderation</h3>
+        <p>Experienced moderator and online event host. Hosted awards nights, YouTube webinars, Q&A sessions, and scholarship panels for audiences across Nigeria.</p>
+        <div class="service-tags">
+          <span class="tag">Webinars</span>
+          <span class="tag">Moderation</span>
+          <span class="tag">Facilitation</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">🤝</span>
+        <h3>Community Management</h3>
+        <p>Built and managed ambassador networks across 20+ Nigerian universities. Skilled at onboarding, engagement, relationship-building, and retention.</p>
+        <div class="service-tags">
+          <span class="tag">Ambassadors</span>
+          <span class="tag">Engagement</span>
+          <span class="tag">Outreach</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">⚖️</span>
+        <h3>Legal Research & Support</h3>
+        <p>Basic legal research, document drafting support, and telecommunications or commercial law insights. Grounded in real court and chamber experience.</p>
+        <div class="service-tags">
+          <span class="tag">Research</span>
+          <span class="tag">Drafting</span>
+          <span class="tag">Telecoms Law</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Track Record</p>
+      <h2 class="section-title">Experience that<br><em>speaks for itself</em></h2>
+    </div>
+    <div class="exp-grid reveal">
+      <div class="exp-nav">
+        <div class="exp-nav-item active" onclick="switchExp(this, 'fon')">
+          <div class="nav-org">Flourish Opp. Network</div>
+          <div class="nav-role">Operations Lead & More</div>
+        </div>
+        <div class="exp-nav-item" onclick="switchExp(this, 'gratius')">
+          <div class="nav-org">Gratius Dei Chambers</div>
+          <div class="nav-role">Legal Intern</div>
+        </div>
+        <div class="exp-nav-item" onclick="switchExp(this, 'harlem')">
+          <div class="nav-org">Harlem Solicitors</div>
+          <div class="nav-role">Legal Intern (Virtual)</div>
+        </div>
+        <div class="exp-nav-item" onclick="switchExp(this, 'magna')">
+          <div class="nav-org">Magna Curia Chambers</div>
+          <div class="nav-role">Director of Academics</div>
+        </div>
+        <div class="exp-nav-item" onclick="switchExp(this, 'lawsan')">
+          <div class="nav-org">LAWSAN SW Magazine</div>
+          <div class="nav-role">Communicator</div>
+        </div>
+        <div class="exp-nav-item" onclick="switchExp(this, 'va')">
+          <div class="nav-org">Private Clients</div>
+          <div class="nav-role">Virtual Assistant</div>
+        </div>
+      </div>
+
+      <div class="exp-content">
+        <div class="exp-panel active" id="exp-fon">
+          <h3>Flourish Opportunities Network</h3>
+          <div class="exp-org">Operations Lead · Community Manager · Moderator · Content Writer</div>
+          <div class="exp-date">2023 – Present</div>
+          <ul>
+            <li>Rose from volunteer to Operations Lead, managing 20+ campus ambassadors across Nigeria plus media, content, and graphics volunteers.</li>
+            <li>Partnered with sponsors to deliver two scholarship programmes — BOSE (2nd Edition) and Emerging Leaders Scholarship UNILAG (1st & 2nd Editions).</li>
+            <li>Designed and managed a 12-month mentorship programme for BOSE Scholars from start to finish.</li>
+            <li>Hosted the FON Awards Night, YouTube webinars, Q&A sessions, scholarship AMAs, and two podcast episodes.</li>
+            <li>Authored two published articles for the FON Ubuntu Young Leaders Magazine (1st Edition: ~200 downloads).</li>
+          </ul>
+        </div>
+
+        <div class="exp-panel" id="exp-gratius">
+          <h3>Gratius Dei Chambers</h3>
+          <div class="exp-org">Legal Intern</div>
+          <div class="exp-date">2023/2024 – 2024/2025</div>
+          <ul>
+            <li>Attended proceedings at the High Court of Osun State and Magistrate Court alongside practising lawyers.</li>
+            <li>Participated in group assignments, presentations, and moot case exercises.</li>
+            <li>Networked with law students from other faculties interning at the firm, building professional relationships.</li>
+            <li>Prepared independently ahead of each court session to maximise learning.</li>
+          </ul>
+        </div>
+
+        <div class="exp-panel" id="exp-harlem">
+          <h3>Harlem Solicitors</h3>
+          <div class="exp-org">Legal Intern — Virtual</div>
+          <div class="exp-date">2025</div>
+          <ul>
+            <li>Completed a virtual internship covering telecommunications law; submitted an advisory entry as a virtual telecoms legal advisor.</li>
+            <li>Gained foundational knowledge of construction law through invited speaker sessions.</li>
+            <li>Participated in a firm-hosted webinar: Unlocking Success in the Legal Profession.</li>
+            <li>Earned a certificate of completion for the internship programme.</li>
+          </ul>
+        </div>
+
+        <div class="exp-panel" id="exp-magna">
+          <h3>UNIOSUN Magna Curia Chambers</h3>
+          <div class="exp-org">Director of Academics · Chairman, Academic Committee</div>
+          <div class="exp-date">2024/2025</div>
+          <ul>
+            <li>Led the chamber to its first-ever moot competition victory and was individually awarded Best Counsel of the Competition.</li>
+            <li>Achieved multiple podium finishes across spelling bee, British parliamentary debate, and argumentative forum competitions.</li>
+            <li>Designed and delivered tutorials in collaboration with the academic committee.</li>
+            <li>Chaired the Academic Committee, overseeing the chamber's educational programming.</li>
+          </ul>
+        </div>
+
+        <div class="exp-panel" id="exp-lawsan">
+          <h3>LAWSAN Southwest Magazine</h3>
+          <div class="exp-org">Communicator, Editorial Board</div>
+          <div class="exp-date">2025</div>
+          <ul>
+            <li>Served as liaison between the editorial board and law faculty bodies across Southwest Nigeria.</li>
+            <li>Collaborated on editing the magazine before its official publication.</li>
+            <li>Recognised as one of the Top 50 Most Outstanding Law Students in Southwest Nigeria upon publication.</li>
+          </ul>
+        </div>
+
+        <div class="exp-panel" id="exp-va">
+          <h3>Private Clients</h3>
+          <div class="exp-org">Virtual Assistant</div>
+          <div class="exp-date">2024 – Present</div>
+          <ul>
+            <li>Managed professional email communications between clients and external parties.</li>
+            <li>Handled calendar scheduling, meeting coordination, and spreadsheet management.</li>
+            <li>Conducted research assignments, delivering accurate and well-structured findings.</li>
+            <li>Maintained confidentiality and professional standards throughout all engagements.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="achievements" id="achievements">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Recognition</p>
+      <h2 class="section-title">Awards &<br><em>achievements</em></h2>
+    </div>
+    <div class="ach-grid reveal">
+      <div class="ach-card">
+        <div class="ach-icon">🏆</div>
+        <div>
+          <h4>Top 50 Most Outstanding Law Students in Southwest Nigeria</h4>
+          <p>LAWSAN Southwest Magazine, 2025</p>
+        </div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-icon">⚖️</div>
+        <div>
+          <h4>Best Moot Counsel & Overall Moot Winner</h4>
+          <p>Yusuf Ali Liberty Chamber, 2025</p>
+        </div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-icon">🌟</div>
+        <div>
+          <h4>E-Award of Exceptional Leadership Excellence</h4>
+          <p>Flourish Opportunities Network, 2024</p>
+        </div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-icon">🥈</div>
+        <div>
+          <h4>1st Runner-Up — Fresher's Week Essay, Oratory & Quiz Competition</h4>
+          <p>Osun State University, 2023</p>
+        </div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-icon">🎖️</div>
+        <div>
+          <h4>Award of Service — Director of Academics</h4>
+          <p>Magna Curia Chambers, 2024/2025</p>
+        </div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-icon">📜</div>
+        <div>
+          <h4>Certificate of Completion — Virtual Legal Internship</h4>
+          <p>Harlem Solicitors, 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label" style="color:var(--gold)">Let's Work Together</p>
+      <h2 class="section-title">Ready to <em>start</em><br>a conversation?</h2>
+      <p class="contact-sub">I'm open to remote opportunities in virtual assistance, operations, content, community management, and more. Reach out — I respond promptly.</p>
+      <div class="contact-links">
+        <a href="mailto:ayomideitunuoluwa7@gmail.com" class="contact-item">
+          ✉️ &nbsp;ayomideitunuoluwa7@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/itunuoluwa-olagunju-184a80306" target="_blank" class="contact-item">
+          💼 &nbsp;LinkedIn Profile
+        </a>
+      </div>
+      <p class="footer-line">© 2025 · Olagunju Itunuoluwa Ayomide · All Rights Reserved</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Sticky nav
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Experience tab switcher
+  function switchExp(navItem, id) {
+    document.querySelectorAll('.exp-nav-item').forEach(n => n.classList.remove('active'));
+    document.querySelectorAll('.exp-panel').forEach(p => p.classList.remove('active'));
+    navItem.classList.add('active');
+    document.getElementById('exp-' + id).classList.add('active');
+  }
+</script>
+</body>
+</html>
